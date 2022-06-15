@@ -3,8 +3,8 @@ package com.nttdata.bootcamp.customerdomain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nttdata.bootcamp.customerdomain.model.CustomerPersonal;
-import com.nttdata.bootcamp.customerdomain.repository.CustomerPersonalRepository;
+import com.nttdata.bootcamp.customerdomain.model.PersonalCustomer;
+import com.nttdata.bootcamp.customerdomain.repository.PersonalCustomerRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,21 +13,21 @@ import reactor.core.publisher.Mono;
 public class CustomerPersonalService {
 
 	@Autowired
-	private CustomerPersonalRepository personalRepository;
+	private PersonalCustomerRepository personalRepository;
 	
-	public Flux<CustomerPersonal> findAll(){
+	public Flux<PersonalCustomer> findAll(){
 		return personalRepository.findAll();
 	}
 	
-	public Mono<CustomerPersonal> findById(String id) {
+	public Mono<PersonalCustomer> findById(String id) {
 		return personalRepository.findById(id);
 	}
 
-	public Mono<CustomerPersonal> save(CustomerPersonal customer){
+	public Mono<PersonalCustomer> save(PersonalCustomer customer){
 		return personalRepository.save(customer);
 	}
 	
-	public Mono<Void> delete(CustomerPersonal customer){
+	public Mono<Void> delete(PersonalCustomer customer){
 		return personalRepository.delete(customer);
 	}
 

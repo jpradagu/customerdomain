@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Document(collection = "customerPersonals")
 @Data
-public class CustomerPersonal {
+public class PersonalCustomer {
 	@Id
 	private String id;
 	@NotEmpty

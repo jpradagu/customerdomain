@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
-import com.nttdata.bootcamp.customerdomain.model.CustomerPersonal;
+import com.nttdata.bootcamp.customerdomain.model.PersonalCustomer;
 import com.nttdata.bootcamp.customerdomain.service.CustomerPersonalService;
 
 import reactor.core.publisher.Flux;
@@ -29,25 +29,25 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/customer/personal")
-public class CustomerPersonalController {
+public class PersonalCustomerController {
 
     @Autowired
     private CustomerPersonalService personalService;
 
     @GetMapping
-    public Mono<ResponseEntity<Flux<CustomerPersonal>>> findAll() {
+    public Mono<ResponseEntity<Flux<PersonalCustomer>>> findAll() {
         return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(personalService.findAll()));
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<CustomerPersonal>> findById(@PathVariable String id) {
+    public Mono<ResponseEntity<PersonalCustomer>> findById(@PathVariable String id) {
         return personalService.findById(id)
                 .map(ce -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ce))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Map<String, Object>>> create(@Valid @RequestBody Mono<CustomerPersonal> monoCustomer) {
+    public Mono<ResponseEntity<Map<String, Object>>> create(@Valid @RequestBody Mono<PersonalCustomer> monoCustomer) {
         Map<String, Object> result = new HashMap<>();
         return monoCustomer.flatMap(c -> {
             c.setId(null);
@@ -68,7 +68,7 @@ public class CustomerPersonalController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<CustomerPersonal>> update(@RequestBody CustomerPersonal personal, @PathVariable String id) {
+    public Mono<ResponseEntity<PersonalCustomer>> update(@RequestBody PersonalCustomer personal, @PathVariable String id) {
         return personalService.findById(id)
                 .flatMap(c -> {
                     c.setAddress(personal.getAddress());

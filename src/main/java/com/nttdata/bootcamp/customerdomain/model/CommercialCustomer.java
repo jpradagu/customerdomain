@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Document(collection = "customerEnteprises")
 @Data
-public class CustomerEnterprise {
+public class CommercialCustomer {
 	@Id
 	private String id;
 	@NotEmpty

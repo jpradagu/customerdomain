@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
-import com.nttdata.bootcamp.customerdomain.model.CustomerEnterprise;
+import com.nttdata.bootcamp.customerdomain.model.CommercialCustomer;
 import com.nttdata.bootcamp.customerdomain.service.CustomerEnterpriseService;
 
 import reactor.core.publisher.Flux;
@@ -29,25 +29,25 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/customer/enterprise")
-public class CustomerEnterpriseController {
+public class CommercialCustomerController {
 
     @Autowired
     private CustomerEnterpriseService enterpriseService;
 
     @GetMapping
-    public Mono<ResponseEntity<Flux<CustomerEnterprise>>> findAll() {
+    public Mono<ResponseEntity<Flux<CommercialCustomer>>> findAll() {
         return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(enterpriseService.findAll()));
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<CustomerEnterprise>> findById(@PathVariable String id) {
+    public Mono<ResponseEntity<CommercialCustomer>> findById(@PathVariable String id) {
         return enterpriseService.findById(id)
                 .map(ce -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ce))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Map<String, Object>>> create(@Valid @RequestBody Mono<CustomerEnterprise> monoCustomer) {
+    public Mono<ResponseEntity<Map<String, Object>>> create(@Valid @RequestBody Mono<CommercialCustomer> monoCustomer) {
         Map<String, Object> result = new HashMap<>();
         return monoCustomer.flatMap(c -> {
             c.setId(null);
@@ -66,7 +66,7 @@ public class CustomerEnterpriseController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<CustomerEnterprise>> update(@RequestBody CustomerEnterprise enterprise,
+    public Mono<ResponseEntity<CommercialCustomer>> update(@RequestBody CommercialCustomer enterprise,
                                                            @PathVariable String id) {
         return enterpriseService
                 .findById(id)
@@ -86,7 +86,7 @@ public class CustomerEnterpriseController {
 
 
     @GetMapping("/{id}/bank-account")
-    public Mono<ResponseEntity<CustomerEnterprise>> findAllBankAccountById(@PathVariable String id) {
+    public Mono<ResponseEntity<CommercialCustomer>> findAllBankAccountById(@PathVariable String id) {
         return enterpriseService.findAllBankAccountByCustomerId(id)
                 .map(ce -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(ce))
                 .defaultIfEmpty(ResponseEntity.notFound().build());

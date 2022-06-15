@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nttdata.bootcamp.customerdomain.model.BankAccount;
-import com.nttdata.bootcamp.customerdomain.model.CustomerEnterprise;
-import com.nttdata.bootcamp.customerdomain.repository.CustomerEnterpriseRepository;
+import com.nttdata.bootcamp.customerdomain.model.CommercialCustomer;
+import com.nttdata.bootcamp.customerdomain.repository.ComercialCustomerRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -22,30 +22,30 @@ public class CustomerEnterpriseService {
 
     private Logger log = LoggerFactory.getLogger(CustomerEnterpriseService.class);
     @Autowired
-    private CustomerEnterpriseRepository enterpriseRepository;
+    private ComercialCustomerRepository enterpriseRepository;
 
     @Autowired
     private WebClient.Builder webClient;
 
-    public Flux<CustomerEnterprise> findAll() {
+    public Flux<CommercialCustomer> findAll() {
         log.debug("CustomerEnterpriseService findAll -> ");
         return enterpriseRepository.findAll();
     }
 
-    public Mono<CustomerEnterprise> findById(String id) {
+    public Mono<CommercialCustomer> findById(String id) {
         return enterpriseRepository.findById(id);
     }
 
-    public Mono<CustomerEnterprise> save(CustomerEnterprise customer) {
+    public Mono<CommercialCustomer> save(CommercialCustomer customer) {
 
         return enterpriseRepository.save(customer);
     }
 
-    public Mono<Void> delete(CustomerEnterprise customer) {
+    public Mono<Void> delete(CommercialCustomer customer) {
         return enterpriseRepository.delete(customer);
     }
 
-    public Mono<CustomerEnterprise> findAllBankAccountByCustomerId(String id) {
+    public Mono<CommercialCustomer> findAllBankAccountByCustomerId(String id) {
         log.info("CustomerEnterpriseService findAllBankAccountByCustomerId -> {}", id);
         return enterpriseRepository.findById(id).flatMap(ent -> {
             ent.setBankAccounts(new ArrayList<BankAccount>());
