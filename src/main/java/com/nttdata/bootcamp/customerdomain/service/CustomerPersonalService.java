@@ -1,11 +1,10 @@
 package com.nttdata.bootcamp.customerdomain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.nttdata.bootcamp.customerdomain.model.PersonalCustomer;
 import com.nttdata.bootcamp.customerdomain.repository.PersonalCustomerRepository;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -24,7 +23,10 @@ public class CustomerPersonalService {
 	}
 
 	public Mono<PersonalCustomer> save(PersonalCustomer customer){
-		return personalRepository.save(customer);
+		return personalRepository.findByDni(customer.getDni())
+				.switchIfEmpty(personalRepository.save(customer))
+				.flatMap(p-> Mono.error(new RuntimeException("Personal customer exist!")));
+
 	}
 	
 	public Mono<Void> delete(PersonalCustomer customer){

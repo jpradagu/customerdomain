@@ -37,8 +37,10 @@ public class CustomerEnterpriseService {
     }
 
     public Mono<CommercialCustomer> save(CommercialCustomer customer) {
+    	return enterpriseRepository.findByRuc(customer.getRuc())
+				.switchIfEmpty(enterpriseRepository.save(customer))
+				.flatMap(p-> Mono.error(new RuntimeException("Commercial customer exist!")));
 
-        return enterpriseRepository.save(customer);
     }
 
     public Mono<Void> delete(CommercialCustomer customer) {

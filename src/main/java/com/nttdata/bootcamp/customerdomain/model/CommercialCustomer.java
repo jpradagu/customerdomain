@@ -4,22 +4,23 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Document(collection = "customerEnteprises")
-@Data
-public class CommercialCustomer {
-	@Id
-	private String id;
+@Getter
+@Setter
+public class CommercialCustomer extends Person{
 	@NotEmpty
 	private String ruc;
 	@NotEmpty
 	private String reasonSocial;
-	@NotEmpty
-	private String owner;
+	
 	private String address;
+	@Transient
 	private List<BankAccount> bankAccounts;
+
 }
