@@ -3,6 +3,7 @@ package com.nttdata.bootcamp.customerdomain.model;
 
 import javax.validation.constraints.NotEmpty;
 
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@ToString
 public class Person {
     @Id
     private String id;
