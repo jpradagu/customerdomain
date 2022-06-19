@@ -18,11 +18,11 @@ import lombok.Setter;
 @ToString(callSuper = true)
 public class PersonalCustomer extends Person {
 
-	@NotEmpty
-	private String dni;
-	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date datebirth;
-	@NotEmpty
-	private String address;
+    @NotEmpty
+    private String dni;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date datebirth;
+    @NotEmpty
+    private String address;
 }

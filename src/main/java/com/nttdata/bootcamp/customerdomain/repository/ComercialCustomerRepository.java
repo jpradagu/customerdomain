@@ -9,5 +9,5 @@ import reactor.core.publisher.Mono;
 
 public interface ComercialCustomerRepository extends ReactiveMongoRepository<CommercialCustomer, String> {
 
-	Mono<CommercialCustomer> findByRuc(String ruc);
+    Mono<CommercialCustomer> findByRuc(String ruc);
 }
